@@ -34,11 +34,9 @@ Created: 2026-05-29
 Requires [Node.js](https://nodejs.org) and VS Code.
 
 ```bash
-git clone https://github.com/remilemire/vscode-file-header-extension.git
-cd vscode-file-header-extension
-npm install
+npm ci
 npx @vscode/vsce package
-code --install-extension vscode-file-header-extension-0.0.1.vsix
+"/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" --install-extension vscode-file-header-extension-0.0.1.vsix
 ```
 
 Reload VS Code and the extension is active in every project. If the
