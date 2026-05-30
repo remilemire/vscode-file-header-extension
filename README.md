@@ -29,6 +29,22 @@ Created: 2026-05-29
 */
 ```
 
+## Build & install from source
+
+Requires [Node.js](https://nodejs.org) and VS Code.
+
+```bash
+git clone https://github.com/remilemire/vscode-file-header-extension.git
+cd vscode-file-header-extension
+npm install
+npx @vscode/vsce package
+code --install-extension vscode-file-header-extension-0.0.1.vsix
+```
+
+Reload VS Code and the extension is active in every project. If the
+`code` command isn't found, run **"Shell Command: Install 'code' command in
+PATH"** from the Command Palette first.
+
 ## How it works
 
 - Fires on file creation (`workspace.onDidCreateFiles`) — explorer "New File",
