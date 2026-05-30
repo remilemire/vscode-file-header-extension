@@ -43,6 +43,21 @@ Reload VS Code and the extension is active in every project. If the
 `code` command isn't found, run **"Shell Command: Install 'code' command in
 PATH"** from the Command Palette first.
 
+### Updating after a code change
+
+Repackage and reinstall with `--force` (overwrites the current install even if
+the version is unchanged), then reload the window:
+
+```bash
+npx @vscode/vsce package
+"/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" --install-extension vscode-file-header-extension-0.0.1.vsix --force
+```
+
+Then run **"Developer: Reload Window"** from the Command Palette.
+
+While actively developing, press **F5** instead to run the source in an
+Extension Development Host — no repackaging needed.
+
 ## How it works
 
 - Fires on file creation (`workspace.onDidCreateFiles`) — explorer "New File",
