@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+out/
+
+# Test runner cache (downloaded VS Code, user data)
+.vscode-test/
+
+# Packaged extension artifacts
+*.vsix
+
+# Test workspace fixture: keep the folder, ignore files tests create in it
+.testworkspace/*
+!.testworkspace/.gitkeep
+
+# macOS
+.DS_Store

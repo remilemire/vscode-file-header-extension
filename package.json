@@ -1,0 +1,106 @@
+{
+  "name": "vscode-file-header-extension",
+  "displayName": "File Header",
+  "description": "Inserts a comment with the file's relative path at the top of newly created files.",
+  "publisher": "remilemire",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.120.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "fileHeader.insertHeader",
+        "title": "Insert File Header"
+      }
+    ],
+    "configuration": {
+      "title": "File Header",
+      "properties": {
+        "fileHeader.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically insert a header comment when a new file is created."
+        },
+        "fileHeader.fields": {
+          "type": "array",
+          "markdownDescription": "Which lines to include in the header, in order. `path` = the file's workspace-relative path, `date` = creation date, `author` = author name (see `#fileHeader.author#`), `description` = an empty 'Description:' line to fill in.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "path",
+              "date",
+              "author",
+              "description"
+            ]
+          },
+          "uniqueItems": true,
+          "default": [
+            "path",
+            "date",
+            "author",
+            "description"
+          ]
+        },
+        "fileHeader.author": {
+          "type": "string",
+          "markdownDescription": "Author name used for the `author` field. Leave empty to use `git config user.name` (falling back to your OS username).",
+          "default": ""
+        },
+        "fileHeader.commentStyles": {
+          "type": "object",
+          "markdownDescription": "Extra or overriding comment styles, merged on top of the built-in defaults. Map a file extension (without the leading dot) to a style: a string for line comments (e.g. `\"//\"`, `\"#\"`) or a two-element `[start, end]` array for block comments (e.g. `[\"/*\", \"*/\"]`). Built-ins already cover common languages (js, ts, py, css, html, etc.); files whose extension isn't covered are left untouched.",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              }
+            ]
+          },
+          "default": {}
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "25.x",
+    "@types/vscode": "^1.120.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.28.0",
+    "eslint": "^10.4.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.60.0"
+  }
+}
